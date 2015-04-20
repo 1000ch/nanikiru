@@ -11,4 +11,4 @@ app.get('/', function(request, response){
   response.render('index');
 });
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
