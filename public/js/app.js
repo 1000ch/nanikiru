@@ -30,8 +30,10 @@ $(function () {
   var selectedList = [];
 
   function onSelectedClick(e) {
-    var kind = String(this.getAttribute('data-kind'));
-    var number = Number(this.getAttribute('data-number'));
+
+    var kind = this.getAttribute('data-kind');
+    var number = this.getAttribute('data-number');
+
     selectedList.some(function (item, index, array) {
       if (kind === item.kind && number === item.number) {
         selectedList.splice(index, 1);
@@ -47,11 +49,12 @@ $(function () {
     }
     
     var count = Number(this.getAttribute('data-count'));
+
     if (count === 0) {
       return;
-    } else {
-      this.setAttribute('data-count', --count);
     }
+
+    this.setAttribute('data-count', --count);
 
     selectedList.push({
       kind: String(this.getAttribute('data-kind')),
