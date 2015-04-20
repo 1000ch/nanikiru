@@ -1,0 +1,17 @@
+{
+  "name": "nanikiru",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "postinstall": "bower install && gulp build",
+    "start": "node index.js"
+  },
+  "author": "1000ch",
+  "license": "MIT",
+  "dependencies": {
+    "bower": "^1.4.1",
+    "express": "^4.12.3",
+    "gulp": "^3.8.11",
+    "jade": "^1.9.2"
+  }
+}

@@ -1,0 +1,10 @@
+ul {
+  list-style-type: none;
+}
+li {
+  display: inline-block;
+}
+.selected-tiles {}
+.character-tiles {}
+.bamboo-tiles {}
+.dot-tiles {}

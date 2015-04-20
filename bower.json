@@ -1,0 +1,19 @@
+{
+  "name": "nanikiru",
+  "version": "0.0.0",
+  "authors": [
+    "1000ch <shogo.sensui@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "normalize.css": "~3.0.3",
+    "jquery": "~2.1.3"
+  }
+}
