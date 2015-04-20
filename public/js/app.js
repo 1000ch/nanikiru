@@ -24,7 +24,7 @@ $(function () {
   $characterTiles.on('click', onTileClick);
   $bambooTiles.on('click', onTileClick);
   $dotTiles.on('click', onTileClick);
-  $honorTiles.on('click', onTileClick)
+  $honorTiles.on('click', onTileClick);
 
   var selectedList = [];
 
@@ -55,6 +55,10 @@ $(function () {
       kind: String(this.getAttribute('data-kind')),
       order: Number(this.getAttribute('data-order')),
       src: String(this.querySelector('img').src)
+    });
+
+    selectedList.sort(function (a, b) {
+      return a.order - b.order;
     });
   }
   
