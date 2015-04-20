@@ -1,7 +1,13 @@
 var gulp = require('gulp');
 
-var CSS_LIB = ['bower_components/normalize.css/normalize.css'];
-var JS_LIB = ['bower_components/jquery/dist/jquery.min.js'];
+var CSS_LIB = [
+  'bower_components/normalize.css/normalize.css',
+  'bower_components/primer-css/css/primer.css'
+];
+
+var JS_LIB = [
+  'bower_components/jquery/dist/jquery.min.js'
+];
 
 gulp.task('css', function () {
   gulp.src(CSS_LIB)

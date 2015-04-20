@@ -4,7 +4,6 @@ ul {
 li {
   display: inline-block;
 }
-.selected-tiles {}
-.character-tiles {}
-.bamboo-tiles {}
-.dot-tiles {}
+#selected {
+  min-height: 96px;
+}

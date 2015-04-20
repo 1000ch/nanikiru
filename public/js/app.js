@@ -14,18 +14,19 @@ var SelectedListView = React.createClass({
 
 $(function () {
   
-  var selectedTile = document.querySelector('#selected-tiles');
-  var $selectedTiles = $(selectedTile);
-  var $characterTiles = $('.character-tiles').find('li');
-  var $bambooTiles = $('.bamboo-tiles').find('li');
-  var $dotTiles = $('.dot-tiles').find('li');
-  var $honorTiles = $('.honor-tiles').find('li');
+  var selected = document.querySelector('#selected');
+  var $selected = $(selected);
+  var $character = $('#character').find('li');
+  var $bamboo = $('#bamboo').find('li');
+  var $dot = $('#dot').find('li');
+  var $honor = $('#honor').find('li');
+  var $input = $('input');
 
-  $selectedTiles.on('click', 'li', onSelectedClick);
-  $characterTiles.on('click', onTileClick);
-  $bambooTiles.on('click', onTileClick);
-  $dotTiles.on('click', onTileClick);
-  $honorTiles.on('click', onTileClick);
+  $selected.on('click', 'li', onSelectedClick);
+  $character.on('click', onTileClick);
+  $bamboo.on('click', onTileClick);
+  $dot.on('click', onTileClick);
+  $honor.on('click', onTileClick);
 
   var selectedList = [];
 
@@ -73,8 +74,24 @@ $(function () {
       React.createElement(SelectedListView, {
         items: selectedList
       }),
-      selectedTile
+      selected
     );
+
+    var object = {};
+    selectedList.forEach(function (item) {
+      if (!object[item.kind]) {
+        object[item.kind] = item.number;
+      } else {
+        object[item.kind] += item.number;
+      }
+    });
+
+    var array = [];
+    Object.keys(object).forEach(function (key) {
+      array.push(key + '=' + object[key]);
+    });
+
+    $input.val(location.protocol + '//' + location.host + '?' + array.join('&'));
   });
 
   var query = location.search.replace('?', '');
@@ -86,22 +103,22 @@ $(function () {
       switch(kind) {
         case 'character':
           values.forEach(function (value) {
-            $characterTiles.filter('[data-number=' + value + ']').click();
+            $character.filter('[data-number=' + value + ']').click();
           });
           break;
         case 'dot':
           values.forEach(function (value) {
-            $dotTiles.filter('[data-number=' + value + ']').click();
+            $dot.filter('[data-number=' + value + ']').click();
           });
           break;
         case 'bamboo':
           values.forEach(function (value) {
-            $bambooTiles.filter('[data-number=' + value + ']').click();
+            $bamboo.filter('[data-number=' + value + ']').click();
           });
           break;
         case 'honor':
           values.forEach(function (value) {
-            $honorTiles.filter('[data-number=' + value + ']').click();
+            $honor.filter('[data-number=' + value + ']').click();
           });
           break;
       }
