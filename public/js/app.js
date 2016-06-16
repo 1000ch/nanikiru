@@ -1,26 +1,25 @@
-var SelectedListView = React.createClass({
-  render: function () {
-    return React.createElement('ul', {}, this.props.items.map(function (item) {
+const SelectedListView = React.createClass({
+  render: function() {
+    return React.createElement('ul', {}, this.props.items.map(item => {
       return React.createElement('li', {
-        'data-kind': item.kind,
-        'data-number': item.number,
-        'data-order': item.order
+        'data-kind'   : item.kind,
+        'data-number' : item.number,
+        'data-order'  : item.order
       }, React.createElement('img', {
-          src: item.src
+          src : item.src
       }));
     }));
   }
 });
 
-$(function () {
-  
-  var selected = document.querySelector('#selected');
-  var $selected = $(selected);
-  var $character = $('#character').find('li');
-  var $bamboo = $('#bamboo').find('li');
-  var $dot = $('#dot').find('li');
-  var $honor = $('#honor').find('li');
-  var $input = $('input');
+$(() => {
+  const selected = document.querySelector('#selected');
+  const $selected = $(selected);
+  const $character = $('#character').find('li');
+  const $bamboo = $('#bamboo').find('li');
+  const $dot = $('#dot').find('li');
+  const $honor = $('#honor').find('li');
+  const $input = $('input');
 
   $selected.on('click', 'li', onSelectedClick);
   $character.on('click', onTileClick);
@@ -28,28 +27,53 @@ $(function () {
   $dot.on('click', onTileClick);
   $honor.on('click', onTileClick);
 
-  var selectedList = [];
+  function renderItems(items) {
+    ReactDOM.render(
+      React.createElement(SelectedListView, {
+        items : selectedList.sort((a, b) => a.order - b.order)
+      }),
+      selected
+    );
+
+    const object = {};
+    selectedList.forEach(item => {
+      if (!object[item.kind]) {
+        object[item.kind] = item.number;
+      } else {
+        object[item.kind] += item.number;
+      }
+    });
+
+    const array = [];
+    Object.keys(object).forEach(key => {
+      array.push(`${key}=${object[key]}`);
+    });
+
+    $input.val(`${location.protocol}//${location.host}?${array.join('&')}`);
+  }
+
+  const selectedList = [];
 
   function onSelectedClick(e) {
+    const kind = this.getAttribute('data-kind');
+    const number = this.getAttribute('data-number');
 
-    var kind = this.getAttribute('data-kind');
-    var number = this.getAttribute('data-number');
-
-    selectedList.some(function (item, index, array) {
+    selectedList.some((item, index, array) => {
       if (kind === item.kind && number === item.number) {
         selectedList.splice(index, 1);
         return true;
       }
     });
+
+    renderItems(selectedList);
   }
 
   function onTileClick(e) {
-
     if (selectedList.length === 14) {
       return;
     }
-    
-    var count = Number(this.getAttribute('data-count'));
+
+    let count = Number(this.getAttribute('data-count'));
 
     if (count === 0) {
       return;
@@ -58,67 +82,40 @@ $(function () {
     this.setAttribute('data-count', --count);
 
     selectedList.push({
-      kind: String(this.getAttribute('data-kind')),
-      number: String(this.getAttribute('data-number')),
-      order: Number(this.getAttribute('data-order')),
-      src: String(this.querySelector('img').src)
+      kind   : String(this.getAttribute('data-kind')),
+      number : String(this.getAttribute('data-number')),
+      order  : Number(this.getAttribute('data-order')),
+      src    : String(this.querySelector('img').src)
     });
 
-    selectedList.sort(function (a, b) {
-      return a.order - b.order;
-    });
+    renderItems(selectedList);
   }
-  
-  Object.observe(selectedList, function (changes) {
-    React.render(
-      React.createElement(SelectedListView, {
-        items: selectedList
-      }),
-      selected
-    );
 
-    var object = {};
-    selectedList.forEach(function (item) {
-      if (!object[item.kind]) {
-        object[item.kind] = item.number;
-      } else {
-        object[item.kind] += item.number;
-      }
-    });
-
-    var array = [];
-    Object.keys(object).forEach(function (key) {
-      array.push(key + '=' + object[key]);
-    });
-
-    $input.val(location.protocol + '//' + location.host + '?' + array.join('&'));
-  });
-
-  var query = location.search.replace('?', '');
-  query.split('&').forEach(function (keyValue) {
-    var kv = keyValue.split('=');
+  const query = location.search.replace('?', '');
+  query.split('&').forEach(keyValue => {
+    const kv = keyValue.split('=');
     if (kv.length === 2) {
-      var kind = kv[0];
-      var values = kv[1].split('');
+      const kind = kv[0];
+      const values = kv[1].split('');
       switch(kind) {
         case 'character':
-          values.forEach(function (value) {
-            $character.filter('[data-number=' + value + ']').click();
+          values.forEach(value => {
+            $character.filter(`[data-number=${value}]`).click();
           });
           break;
         case 'dot':
-          values.forEach(function (value) {
-            $dot.filter('[data-number=' + value + ']').click();
+          values.forEach(value => {
+            $dot.filter(`[data-number=${value}]`).click();
           });
           break;
         case 'bamboo':
-          values.forEach(function (value) {
-            $bamboo.filter('[data-number=' + value + ']').click();
+          values.forEach(value => {
+            $bamboo.filter(`[data-number=${value}]`).click();
           });
           break;
         case 'honor':
-          values.forEach(function (value) {
-            $honor.filter('[data-number=' + value + ']').click();
+          values.forEach(value => {
+            $honor.filter(`[data-number=${value}]`).click();
           });
           break;
       }

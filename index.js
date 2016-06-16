@@ -1,7 +1,7 @@
-var express = require('express');
-var jade = require('jade');
+const express = require('express');
+const jade = require('jade');
 
-var app = express();
+const app = express();
 app.engine('jade', jade.__express);
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
