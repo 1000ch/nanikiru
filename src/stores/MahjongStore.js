@@ -6,10 +6,10 @@ class MahjongStore extends BaseStore {
 
   constructor(dispatcher) {
     super(dispatcher);
-    this.characters = [];
-    this.bamboos = [];
-    this.dots = [];
-    this.honors = [];
+    this.characters = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    this.dots = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    this.bamboos = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    this.honors = [1, 2, 3, 4, 5, 6, 7];
   }
 
   getCharacters() {
@@ -18,15 +18,15 @@ class MahjongStore extends BaseStore {
     };
   }
 
-  getBamboos() {
-    return {
-      bamboos : this.bamboos
-    };
-  }
-
   getDots() {
     return {
       dots : this.dots
+    };
+  }
+
+  getBamboos() {
+    return {
+      bamboos : this.bamboos
     };
   }
 
@@ -39,16 +39,16 @@ class MahjongStore extends BaseStore {
   dehydrate() {
     return {
       characters : this.characters,
-      bamboos : this.bamboos,
       dots : this.dots,
+      bamboos : this.bamboos,
       honors : this.honors
     };
   }
 
   rehydrate(state) {
     this.characters = state.characters;
-    this.bamboos = state.bamboos;
     this.dots = state.dots;
+    this.bamboos = state.bamboos;
     this.honors = state.honors;
   }
 }
