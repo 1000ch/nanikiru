@@ -9,9 +9,9 @@ import app from './app';
 import Document from './components/Document';
 
 const server = new Server();
-server.addStatic('/js', path.resolve(__dirname, '..', 'public', 'js'));
-server.addStatic('/css', path.resolve(__dirname, '..', 'public', 'css'));
-server.addStatic('/img', path.resolve(__dirname, '..', 'public', 'img'));
+server.addStatic('/js', path.resolve(__dirname, 'public', 'js'));
+server.addStatic('/css', path.resolve(__dirname, 'public', 'css'));
+server.addStatic('/img', path.resolve(__dirname, 'public', 'img'));
 server.addMiddleware((request, response, next) => {
   const context = app.createContext();
 

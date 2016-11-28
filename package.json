@@ -6,27 +6,29 @@
     "browserify_transforms": "--transform [ babelify --presets [ es2015 es2016 react ] --plugins [ add-module-exports transform-class-properties ] ]"
   },
   "scripts": {
-    "build": "npm run build:js",
-    "build:js": "mkdir -p dist && npm run build:js:client && npm run build:js:server",
-    "build:js:client": "browserify src/client.js $npm_package_config_browserify_transforms -o dist/app.js",
+    "build": "npm run build:js && npm run build:css && npm run build:img",
+    "build:js": "mkdir -p dist/public/js && npm run build:js:client && npm run build:js:server",
+    "build:js:client": "browserify src/client.js $npm_package_config_browserify_transforms --outfile dist/public/js/app.js",
     "build:js:server": "babel src --out-dir dist",
+    "build:css": "mkdir -p dist/public/css && postcss --use postcss-import --use cssnano --output dist/public/css/app.css src/app.css",
+    "build:img": "cp -R img dist/public",
     "watch": "npm run watch:js & npm run watch:css",
     "watch:js": "npm run watch:js:client & npm run watch:js:server",
-    "watch:js:client": "watchify src/client.js --debug -v $npm_package_config_browserify_transforms -o dist/app.js",
+    "watch:js:client": "watchify src/client.js --debug -v $npm_package_config_browserify_transforms --outfile dist/app.js",
     "watch:js:server": "babel src --watch --out-dir dist",
-    "postinstall": "bower install && gulp build",
-    "start": "node index.js"
+    "start": "node dist/server.js"
   },
   "author": "1000ch",
   "license": "MIT",
   "dependencies": {
-    "bower": "^1.7.9",
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
     "express": "^4.13.4",
     "fluxible": "^1.2.0",
     "fluxible-addons-react": "^0.2.8",
     "fluxible-router": "^1.0.0-alpha.7",
-    "gulp": "^3.9.1",
-    "jade": "^1.11.0",
+    "normalize.css": "^5.0.0",
+    "primer-css": "^4.3.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "serialize-javascript": "^1.3.0"
@@ -37,6 +39,12 @@
     "babel-plugin-transform-class-properties": "^6.19.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-es2016": "^6.16.0",
-    "babel-preset-react": "^6.16.0"
+    "babel-preset-react": "^6.16.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.1",
+    "cssnano": "^3.8.1",
+    "postcss-cli": "^2.6.0",
+    "postcss-import": "^8.2.0",
+    "watchify": "^3.7.0"
   }
 }

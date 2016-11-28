@@ -1,6 +1,7 @@
 import React from 'react';
 import { connectToStores } from 'fluxible-addons-react';
 import BaseComponent from '../bases/BaseComponent';
+import MahjongStore from '../stores/MahjongStore';
 
 class IndexPage extends BaseComponent {
   static contextTypes = {
@@ -9,13 +10,17 @@ class IndexPage extends BaseComponent {
   };
 
   static propTypes = {
-    categories : React.PropTypes.arrayOf(React.PropTypes.object),
-    items      : React.PropTypes.arrayOf(React.PropTypes.object)
+    characters : React.PropTypes.array,
+    bamboos: React.PropTypes.array,
+    dots: React.PropTypes.array,
+    honors: React.PropTypes.array
   };
 
   static defaultProps = {
-    categories : [],
-    items      : []
+    characters : [],
+    bamboos : [],
+    dots : [],
+    honors : []
   };
 
   constructor(props, context) {
@@ -30,9 +35,12 @@ class IndexPage extends BaseComponent {
   }
 }
 
-IndexPage = connectToStores(IndexPage, [ItemStore], context => {
+IndexPage = connectToStores(IndexPage, [MahjongStore], context => {
   return {
-    items : context.getStore(ItemStore).getItems()
+    characters : context.getStore(MahjongStore).getCharacters().characters,
+    bamboos : context.getStore(MahjongStore).getBamboos().bamboos,
+    dots : context.getStore(MahjongStore).getDots().dots,
+    honors : context.getStore(MahjongStore).getHonors().honors
   };
 });
 
