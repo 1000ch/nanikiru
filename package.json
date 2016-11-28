@@ -3,20 +3,22 @@
   "private": true,
   "description": "nanikiru?",
   "config": {
-    "browserify_transforms": "--transform [ babelify --presets [ es2015 es2016 react ] --plugins [ add-module-exports transform-class-properties ] ]"
+    "browserify_transforms": "--transform [ babelify --presets [ es2015 es2016 react ] --plugins [ add-module-exports transform-class-properties ] ]",
+    "postcss_plugins": "--use postcss-import --use cssnano"
   },
   "scripts": {
     "build": "npm run build:js && npm run build:css && npm run build:img",
     "build:js": "mkdir -p dist/public/js && npm run build:js:client && npm run build:js:server",
     "build:js:client": "browserify src/client.js $npm_package_config_browserify_transforms --outfile dist/public/js/app.js",
     "build:js:server": "babel src --out-dir dist",
-    "build:css": "mkdir -p dist/public/css && postcss --use postcss-import --use cssnano --output dist/public/css/app.css src/app.css",
+    "build:css": "mkdir -p dist/public/css && postcss $npm_package_config_postcss_plugins --output dist/public/css/app.css src/app.css",
     "build:img": "cp -R img dist/public",
     "watch": "npm run watch:js & npm run watch:css",
     "watch:js": "npm run watch:js:client & npm run watch:js:server",
-    "watch:js:client": "watchify src/client.js --debug -v $npm_package_config_browserify_transforms --outfile dist/app.js",
+    "watch:js:client": "watchify src/client.js --debug -v $npm_package_config_browserify_transforms --outfile dist/public/js/app.js",
     "watch:js:server": "babel src --watch --out-dir dist",
-    "start": "node dist/server.js"
+    "watch:css": "postcss $npm_package_config_postcss_plugins --watch --output dist/public/css/app.css src/app.css",
+    "start": "nodemon dist/server.js"
   },
   "author": "1000ch",
   "license": "MIT",
@@ -43,6 +45,7 @@
     "babelify": "^7.3.0",
     "browserify": "^13.1.1",
     "cssnano": "^3.8.1",
+    "nodemon": "^1.11.0",
     "postcss-cli": "^2.6.0",
     "postcss-import": "^8.2.0",
     "watchify": "^3.7.0"
