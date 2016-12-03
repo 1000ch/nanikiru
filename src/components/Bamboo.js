@@ -3,11 +3,13 @@ import BaseComponent from '../bases/BaseComponent';
 
 class Bamboo extends BaseComponent {
   static propTypes = {
-    number : React.PropTypes.number.isRequired
+    number  : React.PropTypes.number.isRequired,
+    onClick : React.PropTypes.func
   };
 
   static defaultProps = {
-    number : 1
+    number  : 1,
+    onClick : () => {}
   };
 
   constructor(props) {
@@ -15,7 +17,7 @@ class Bamboo extends BaseComponent {
   }
 
   render() {
-    return <img src={`/img/bamboo/${this.props.number}.png`} />;
+    return <img onClick={this.props.onClick} src={`/img/bamboo/${this.props.number}.png`} />;
   }
 }
 
