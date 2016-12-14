@@ -1,2 +1,12 @@
 @import "normalize.css";
-@import "primer-css";
+
+.Container {
+  display: flex;
+  flex-direction: column;
+}
+
+.Row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

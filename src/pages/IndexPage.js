@@ -108,34 +108,24 @@ class IndexPage extends BaseComponent {
 
   render() {
     return (
-      <div className="container">
-        <div className="columns">
-          <div className="column centered">
-            {this.renderSelectedCharacters()}
-            {this.renderSelectedDots()}
-            {this.renderSelectedBamboos()}
-            {this.renderSelectedHonors()}
-          </div>
+      <div className="Container">
+        <div className="Row">
+          {this.renderSelectedCharacters()}
+          {this.renderSelectedDots()}
+          {this.renderSelectedBamboos()}
+          {this.renderSelectedHonors()}
         </div>
-        <div className="columns">
-          <div className="column centered">
-            {this.renderCharacters()}
-          </div>
+        <div className="Row">
+          {this.renderCharacters()}
         </div>
-        <div className="columns">
-          <div className="column centered">
-            {this.renderDots()}
-          </div>
+        <div className="Row">
+          {this.renderDots()}
         </div>
-        <div className="columns">
-          <div className="column centered">
-            {this.renderBamboos()}
-          </div>
+        <div className="Row">
+          {this.renderBamboos()}
         </div>
-        <div className="columns">
-          <div className="column centered">
-            {this.renderHonors()}
-          </div>
+        <div className="Row">
+          {this.renderHonors()}
         </div>
       </div>
     );
