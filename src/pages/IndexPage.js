@@ -31,9 +31,9 @@ class IndexPage extends BaseComponent {
     super(props, context);
 
     this.state = {
-      characters : [1, 2, 3],
-      dots       : [1, 1, 2, 2, 3, 3],
-      bamboos    : [1, 2, 3],
+      characters : [],
+      dots       : [],
+      bamboos    : [],
       honors     : []
     };
   }
@@ -42,68 +42,144 @@ class IndexPage extends BaseComponent {
     return this.state.characters.length + this.state.dots.length + this.state.bamboos.length + this.state.honors.length;
   }
 
-  onCharacterClick(e) {
-    if (this.selectedCount() >= 14) {
-      return;
-    }
+  onSelectedCharacterClick(number) {
+    const characters = this.state.characters;
+    characters.splice(characters.indexOf(number), 1);
 
-    console.log(e);
+    this.setState({
+      characters: characters
+    });
   }
 
-  onDotClick(e) {
-    if (this.selectedCount() >= 14) {
-      return;
-    }
+  onSelectedDotClick(number) {
+    const dots = this.state.dots;
+    dots.splice(dots.indexOf(number), 1);
 
-    console.log(e);
+    this.setState({
+      dots: dots
+    });
   }
 
-  onBambooClick(e) {
-    if (this.selectedCount() >= 14) {
-      return;
-    }
+  onSelectedBambooClick(number) {
+    const bamboos = this.state.bamboos;
+    bamboos.splice(bamboos.indexOf(number), 1);
 
-    console.log(e);
+    this.setState({
+      bamboos: bamboos
+    });
   }
 
-  onHonorClick(e) {
+  onSelectedHonorClick(number) {
+    const honors = this.state.honors;
+    honors.splice(honors.indexOf(number), 1);
+
+    this.setState({
+      honors: honors
+    });
+  }
+
+  onCharacterClick(number) {
     if (this.selectedCount() >= 14) {
       return;
     }
 
-    console.log(e);
+    const characters = this.state.characters;
+
+    if (characters.filter(character => character === number).length >= 4) {
+      return;
+    }
+
+    characters.push(number);
+
+    this.setState({
+      characters: characters.sort()
+    });
+  }
+
+  onDotClick(number) {
+    if (this.selectedCount() >= 14) {
+      return;
+    }
+
+    const dots = this.state.dots;
+
+    if (dots.filter(dot => dot === number).length >= 4) {
+      return;
+    }
+
+    dots.push(number);
+
+    this.setState({
+      dots: dots.sort()
+    });
+  }
+
+  onBambooClick(number) {
+    if (this.selectedCount() >= 14) {
+      return;
+    }
+
+    const bamboos = this.state.bamboos;
+
+    if (bamboos.filter(bamboo => bamboo === number).length >= 4) {
+      return;
+    }
+
+    bamboos.push(number);
+
+    this.setState({
+      bamboos: bamboos.sort()
+    });
+  }
+
+  onHonorClick(number) {
+    if (this.selectedCount() >= 14) {
+      return;
+    }
+
+    const honors = this.state.honors;
+
+    if (honors.filter(honor => honor === number).length >= 4) {
+      return;
+    }
+
+    honors.push(number);
+
+    this.setState({
+      honors: honors.sort()
+    });
   }
 
   renderSelectedCharacters() {
-    return this.state.characters.map((n, i) => <Character key={i} number={n} />);
+    return this.state.characters.map((n, i) => <Character onClick={this.onSelectedCharacterClick.bind(this, n)} key={i} number={n} />);
   }
 
   renderSelectedDots() {
-    return this.state.dots.map((n, i) => <Dot key={i} number={n} />);
+    return this.state.dots.map((n, i) => <Dot onClick={this.onSelectedDotClick.bind(this, n)} key={i} number={n} />);
   }
 
   renderSelectedBamboos() {
-    return this.state.bamboos.map((n, i) => <Bamboo key={i} number={n} />);
+    return this.state.bamboos.map((n, i) => <Bamboo onClick={this.onSelectedBambooClick.bind(this, n)} key={i} number={n} />);
   }
 
   renderSelectedHonors() {
-    return this.state.honors.map((n, i) => <Honor key={i} number={n} />);
+    return this.state.honors.map((n, i) => <Honor onClick={this.onSelectedHonorClick.bind(this, n)} key={i} number={n} />);
   }
 
   renderCharacters() {
-    return this.props.characters.map((n, i) => <Character onClick={this.onCharacterClick} key={i} number={n} />);
+    return this.props.characters.map((n, i) => <Character onClick={this.onCharacterClick.bind(this, n)} key={i} number={n} />);
   }
 
   renderDots() {
-    return this.props.dots.map((n, i) => <Dot onClick={this.onDotClick} key={i} number={n} />);
+    return this.props.dots.map((n, i) => <Dot onClick={this.onDotClick.bind(this, n)} key={i} number={n} />);
   }
 
   renderBamboos() {
-    return this.props.bamboos.map((n, i) => <Bamboo onClick={this.onBambooClick} key={i} number={n} />);
+    return this.props.bamboos.map((n, i) => <Bamboo onClick={this.onBambooClick.bind(this, n)} key={i} number={n} />);
   }
 
   renderHonors() {
-    return this.props.honors.map((n, i) => <Honor onClick={this.onHonorClick} key={i} number={n} />);
+    return this.props.honors.map((n, i) => <Honor onClick={this.onHonorClick.bind(this, n)} key={i} number={n} />);
   }
 
   render() {
