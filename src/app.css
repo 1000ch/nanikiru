@@ -1,0 +1,12 @@
+@import "normalize.css";
+
+.Container {
+  display: flex;
+  flex-direction: column;
+}
+
+.Row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

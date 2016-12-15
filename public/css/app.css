@@ -1,9 +1,0 @@
-ul {
-  list-style-type: none;
-}
-li {
-  display: inline-block;
-}
-#selected {
-  min-height: 96px;
-}
